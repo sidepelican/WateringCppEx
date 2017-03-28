@@ -13,6 +13,11 @@
 		376CFC591E893EEF001D88ED /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376CFC581E893EEF001D88ED /* SourceEditorExtension.swift */; };
 		376CFC5B1E893EEF001D88ED /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376CFC5A1E893EEF001D88ED /* SourceEditorCommand.swift */; };
 		376CFC5F1E893EEF001D88ED /* WateringCppEx.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 376CFC511E893EEF001D88ED /* WateringCppEx.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3777EF641E8A9B4C003AFE16 /* WateringCppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3777EF631E8A9B4C003AFE16 /* WateringCppTests.swift */; };
+		3777EF6B1E8A9B58003AFE16 /* String+regexp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379CB9D71E8A91D5009D1BAD /* String+regexp.swift */; };
+		3777EF6C1E8A9B5B003AFE16 /* CppFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379CB9D91E8A9648009D1BAD /* CppFunction.swift */; };
+		379CB9D81E8A91D5009D1BAD /* String+regexp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379CB9D71E8A91D5009D1BAD /* String+regexp.swift */; };
+		379CB9DA1E8A9648009D1BAD /* CppFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379CB9D91E8A9648009D1BAD /* CppFunction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,6 +27,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 376CFC501E893EEF001D88ED;
 			remoteInfo = WateringCppEx;
+		};
+		3777EF661E8A9B4C003AFE16 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 376CFC341E893EAC001D88ED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 376CFC3B1E893EAC001D88ED;
+			remoteInfo = WateringCpp;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -51,6 +63,11 @@
 		376CFC581E893EEF001D88ED /* SourceEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorExtension.swift; sourceTree = "<group>"; };
 		376CFC5A1E893EEF001D88ED /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
 		376CFC5C1E893EEF001D88ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3777EF611E8A9B4C003AFE16 /* WateringCppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WateringCppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3777EF631E8A9B4C003AFE16 /* WateringCppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WateringCppTests.swift; sourceTree = "<group>"; };
+		3777EF651E8A9B4C003AFE16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		379CB9D71E8A91D5009D1BAD /* String+regexp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+regexp.swift"; sourceTree = "<group>"; };
+		379CB9D91E8A9648009D1BAD /* CppFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CppFunction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +86,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3777EF5E1E8A9B4C003AFE16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,6 +101,7 @@
 			children = (
 				376CFC3E1E893EAC001D88ED /* WateringCpp */,
 				376CFC551E893EEF001D88ED /* WateringCppEx */,
+				3777EF621E8A9B4C003AFE16 /* WateringCppTests */,
 				376CFC521E893EEF001D88ED /* Frameworks */,
 				376CFC3D1E893EAC001D88ED /* Products */,
 			);
@@ -87,6 +112,7 @@
 			children = (
 				376CFC3C1E893EAC001D88ED /* WateringCpp.app */,
 				376CFC511E893EEF001D88ED /* WateringCppEx.appex */,
+				3777EF611E8A9B4C003AFE16 /* WateringCppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,6 +141,8 @@
 			children = (
 				376CFC581E893EEF001D88ED /* SourceEditorExtension.swift */,
 				376CFC5A1E893EEF001D88ED /* SourceEditorCommand.swift */,
+				379CB9D71E8A91D5009D1BAD /* String+regexp.swift */,
+				379CB9D91E8A9648009D1BAD /* CppFunction.swift */,
 				376CFC5C1E893EEF001D88ED /* Info.plist */,
 				376CFC561E893EEF001D88ED /* Supporting Files */,
 			);
@@ -127,6 +155,15 @@
 				376CFC571E893EEF001D88ED /* WateringCppEx.entitlements */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3777EF621E8A9B4C003AFE16 /* WateringCppTests */ = {
+			isa = PBXGroup;
+			children = (
+				3777EF631E8A9B4C003AFE16 /* WateringCppTests.swift */,
+				3777EF651E8A9B4C003AFE16 /* Info.plist */,
+			);
+			path = WateringCppTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,13 +205,31 @@
 			productReference = 376CFC511E893EEF001D88ED /* WateringCppEx.appex */;
 			productType = "com.apple.product-type.xcode-extension";
 		};
+		3777EF601E8A9B4C003AFE16 /* WateringCppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3777EF6A1E8A9B4C003AFE16 /* Build configuration list for PBXNativeTarget "WateringCppTests" */;
+			buildPhases = (
+				3777EF5D1E8A9B4C003AFE16 /* Sources */,
+				3777EF5E1E8A9B4C003AFE16 /* Frameworks */,
+				3777EF5F1E8A9B4C003AFE16 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3777EF671E8A9B4C003AFE16 /* PBXTargetDependency */,
+			);
+			name = WateringCppTests;
+			productName = WateringCppTests;
+			productReference = 3777EF611E8A9B4C003AFE16 /* WateringCppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		376CFC341E893EAC001D88ED /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = sidepelican;
 				TargetAttributes = {
@@ -193,6 +248,11 @@
 						DevelopmentTeam = R3M694BK62;
 						ProvisioningStyle = Automatic;
 					};
+					3777EF601E8A9B4C003AFE16 = {
+						CreatedOnToolsVersion = 8.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 376CFC3B1E893EAC001D88ED;
+					};
 				};
 			};
 			buildConfigurationList = 376CFC371E893EAC001D88ED /* Build configuration list for PBXProject "WateringCpp" */;
@@ -210,6 +270,7 @@
 			targets = (
 				376CFC3B1E893EAC001D88ED /* WateringCpp */,
 				376CFC501E893EEF001D88ED /* WateringCppEx */,
+				3777EF601E8A9B4C003AFE16 /* WateringCppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -224,6 +285,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		376CFC4F1E893EEF001D88ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3777EF5F1E8A9B4C003AFE16 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -245,8 +313,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				379CB9D81E8A91D5009D1BAD /* String+regexp.swift in Sources */,
+				379CB9DA1E8A9648009D1BAD /* CppFunction.swift in Sources */,
 				376CFC591E893EEF001D88ED /* SourceEditorExtension.swift in Sources */,
 				376CFC5B1E893EEF001D88ED /* SourceEditorCommand.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3777EF5D1E8A9B4C003AFE16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3777EF6C1E8A9B5B003AFE16 /* CppFunction.swift in Sources */,
+				3777EF641E8A9B4C003AFE16 /* WateringCppTests.swift in Sources */,
+				3777EF6B1E8A9B58003AFE16 /* String+regexp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +337,11 @@
 			isa = PBXTargetDependency;
 			target = 376CFC501E893EEF001D88ED /* WateringCppEx */;
 			targetProxy = 376CFC5D1E893EEF001D88ED /* PBXContainerItemProxy */;
+		};
+		3777EF671E8A9B4C003AFE16 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 376CFC3B1E893EAC001D88ED /* WateringCpp */;
+			targetProxy = 3777EF661E8A9B4C003AFE16 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -421,6 +506,42 @@
 			};
 			name = Release;
 		};
+		3777EF681E8A9B4C003AFE16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = WateringCppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.side.junktown.WateringCppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WateringCpp.app/Contents/MacOS/WateringCpp";
+			};
+			name = Debug;
+		};
+		3777EF691E8A9B4C003AFE16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = WateringCppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.side.junktown.WateringCppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WateringCpp.app/Contents/MacOS/WateringCpp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -440,12 +561,22 @@
 				376CFC4B1E893EAC001D88ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		376CFC601E893EEF001D88ED /* Build configuration list for PBXNativeTarget "WateringCppEx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				376CFC611E893EEF001D88ED /* Debug */,
 				376CFC621E893EEF001D88ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3777EF6A1E8A9B4C003AFE16 /* Build configuration list for PBXNativeTarget "WateringCppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3777EF681E8A9B4C003AFE16 /* Debug */,
+				3777EF691E8A9B4C003AFE16 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
