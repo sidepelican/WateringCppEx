@@ -21,17 +21,38 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
         
         buffer.lines.insert("Hello World!", at: selection.start.line)
         
-        // find insert position (ignore empty line)
+        // find target line range
         var startIndex = selection.start.line
+        var endIndex   = selection.end.line
         while let line = buffer.lines[startIndex] as? String, isEmptyLine(line) {
             startIndex += 1
         }
-        
-        // duplicate lines as comment (ignore empty line)
-        let duplines = selectedLines(buffer: buffer, selection: selection).filter{ !isEmptyLine($0) }
-        duplines.reversed().forEach{ line in
-            buffer.lines.insert("// " + line, at: startIndex)
+        while let line = buffer.lines[endIndex] as? String, isEmptyLine(line) {
+            endIndex -= 1
         }
+        
+        // insert to endIndex
+        let lines = selectedLines(buffer: buffer, selection: selection).filter{ !isEmptyLine($0) }
+        lines.reversed().forEach{ line in
+            
+            guard let f = CppFunction(line: line) else { return }
+            
+            var addLines: [String] = []
+            if let comment = f.comment {
+                addLines.append(comment)
+            }
+            addLines.append(f.returnType + " " + "ClassName" + "::" + f.nameAndArgs + (f.hasConst ? " const" : ""))
+            addLines.append("{")
+            addLines.append("")
+            addLines.append("}")
+            
+            addLines.reversed().forEach{
+                buffer.lines.insert($0, at: endIndex)
+            }
+        }
+        
+        // remove old
+        buffer.lines.removeObjects(in: NSMakeRange(startIndex, endIndex - startIndex))
         
         completionHandler(nil)
     }
