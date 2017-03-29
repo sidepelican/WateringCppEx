@@ -19,55 +19,47 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
             return
         }
         
-        buffer.lines.insert("Hello World!", at: selection.start.line)
-        
-        // find target line range
-        var startIndex = selection.start.line
-        var endIndex   = selection.end.line
-        while let line = buffer.lines[startIndex] as? String, isEmptyLine(line) {
-            startIndex += 1
+        // find ClassName
+        guard let secondLine = buffer.lines[1] as? String else {
+            completionHandler(NSError(domain: "WateringCpp", code: -1, userInfo: [NSLocalizedDescriptionKey: "cannot read line 2"]))
+            return
         }
-        while let line = buffer.lines[endIndex] as? String, isEmptyLine(line) {
-            endIndex -= 1
+        let matches = secondLine.match(pattern: "\\w+")
+        guard !matches.isEmpty else {
+            completionHandler(NSError(domain: "WateringCpp", code: -1, userInfo: [NSLocalizedDescriptionKey: "cannot find ClassName at line 2"]))
+            return
         }
+        let className = matches[0][0]
+    
+        // replace from back
+        var currentIndex = selection.end.line
         
-        // insert to endIndex
-        let lines = selectedLines(buffer: buffer, selection: selection).filter{ !isEmptyLine($0) }
-        lines.reversed().forEach{ line in
+        while selection.start.line <= currentIndex {
             
-            guard let f = CppFunction(line: line) else { return }
+            guard let line = buffer.lines[currentIndex] as? String else { break }
+            defer {
+                currentIndex -= 1
+            }
+            if isEmptyLine(line) { continue }
+            guard let f = CppFunction(line: line) else { continue }
+            buffer.lines.removeObject(at: currentIndex)
             
             var addLines: [String] = []
             if let comment = f.comment {
                 addLines.append(comment)
             }
-            addLines.append(f.returnType + " " + "ClassName" + "::" + f.nameAndArgs + (f.hasConst ? " const" : ""))
+            addLines.append(f.returnType + " " + className + "::" + f.nameAndArgs + (f.hasConst ? " const" : ""))
             addLines.append("{")
             addLines.append("")
             addLines.append("}")
+            addLines.append("")
             
             addLines.reversed().forEach{
-                buffer.lines.insert($0, at: endIndex)
+                buffer.lines.insert($0, at: currentIndex)
             }
         }
         
-        // remove old
-        buffer.lines.removeObjects(in: NSMakeRange(startIndex, endIndex - startIndex))
-        
         completionHandler(nil)
-    }
-    
-    private func selectedLines(buffer: XCSourceTextBuffer, selection: XCSourceTextRange) -> [String] {
-        
-        var selectedRange = selection.start.line...selection.end.line
-        
-        // For triple-click Xcode selects one additional line, we don't want to duplicate it // from castus
-        let selectedRangeLength = selectedRange.distance(from: selectedRange.startIndex, to: selectedRange.endIndex)
-        if selectedRangeLength > 1 && selection.end.column == 0 {
-            selectedRange = selection.start.line...(selection.end.line - 1)
-        }
-        
-        return selectedRange.flatMap{ buffer.lines[$0] as? String }
     }
     
     private func isEmptyLine(_ line: String) -> Bool {

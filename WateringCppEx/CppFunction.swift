@@ -43,7 +43,6 @@ struct CppFunction {
         if self.hasConst {
             line.removeSubrange(line.range(of: "const")!)
         }
-        print("remainLine:", line)
         
         // virtual & returnType
         ans = line.match(pattern: "[\\w\\(\\)&<>,]+")
