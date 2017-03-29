@@ -79,15 +79,14 @@ class WateringCppTests: XCTestCase {
             XCTFail("could not parse")
         }
 
-        // TODO: failed
-//        if let f = CppFunction(line: "map<int, map<int, int>> map(const map<int, int>& a);") {
-//            XCTAssertEqual(f.nameAndArgs, "map(const map<int, int>& a)")
-//            XCTAssertEqual(f.returnType, "map<int, map<int, int>>")
-//            XCTAssertEqual(f.hasVirtual, false)
-//            XCTAssertEqual(f.hasConst, false)
-//            XCTAssertEqual(f.comment, .none)
-//        }else{
-//            XCTFail("could not parse")
-//        }
+        if let f = CppFunction(line: "map<int, map<int, int>> map(const map<int, int>& a);") {
+            XCTAssertEqual(f.nameAndArgs, "map(const map<int, int>& a)")
+            XCTAssertEqual(f.returnType, "map<int,map<int,int>>")
+            XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasConst, false)
+            XCTAssertEqual(f.comment, .none)
+        }else{
+            XCTFail("could not parse")
+        }
     }
 }

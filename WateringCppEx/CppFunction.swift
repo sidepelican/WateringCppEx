@@ -18,11 +18,32 @@ struct CppFunction {
     
     init?(line: String) {
         
+        var line = line
+        
         // function name & Args
         var ans = line.match(pattern: "\\w+((\\(\\))|\\([\\w*]+\\s[\\w\\s<>&*\\(\\),:]+\\))")
         guard !ans.isEmpty else { return nil }
         let nameAndArgs = ans[0][0]
         self.nameAndArgs = nameAndArgs
+        
+        // has const
+        self.hasConst = !line.match(pattern: "\\)\\s*const").isEmpty
+        
+        // has comment
+        ans = line.match(pattern: "//.*")
+        if !ans.isEmpty {
+            self.comment = ans[0][0]
+            line.removeSubrange(line.range(of: self.comment!)!)
+        }else{
+            self.comment = nil
+        }
+        
+        // remove noizy words. // TODO: dirty
+        line.removeSubrange(line.range(of: nameAndArgs)!)
+        if self.hasConst {
+            line.removeSubrange(line.range(of: "const")!)
+        }
+        print("remainLine:", line)
         
         // virtual & returnType
         ans = line.match(pattern: "[\\w\\(\\)&<>,]+")
@@ -33,17 +54,6 @@ struct CppFunction {
             ans.removeFirst()
         }
         
-        self.returnType = ans.flatMap{$0}.prefix{ !nameAndArgs.contains($0) }.joined()
-        
-        // has const
-        self.hasConst = !line.match(pattern: "\\)\\s*const").isEmpty
-        
-        // has comment
-        ans = line.match(pattern: "//.*")
-        if !ans.isEmpty {
-            self.comment = ans[0][0]
-        }else{
-            self.comment = nil
-        }
+        self.returnType = ans.flatMap{$0}.prefix{ !$0.contains(";") }.joined()
     }
 }
