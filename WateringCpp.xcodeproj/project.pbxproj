@@ -236,7 +236,7 @@
 					376CFC3B1E893EAC001D88ED = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = R3M694BK62;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -246,7 +246,7 @@
 					376CFC501E893EEF001D88ED = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = R3M694BK62;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					3777EF601E8A9B4C003AFE16 = {
 						CreatedOnToolsVersion = 8.3;
@@ -442,7 +442,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WateringCpp/WateringCpp.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R3M694BK62;
 				INFOPLIST_FILE = WateringCpp/Info.plist;
@@ -450,6 +450,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.side.junktown.WateringCpp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9039e312-925d-42f0-ae58-410542639d9e";
+				PROVISIONING_PROFILE_SPECIFIER = "WateringCpp DeveloperID";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -460,7 +462,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WateringCpp/WateringCpp.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R3M694BK62;
 				INFOPLIST_FILE = WateringCpp/Info.plist;
@@ -468,6 +470,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.side.junktown.WateringCpp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9039e312-925d-42f0-ae58-410542639d9e";
+				PROVISIONING_PROFILE_SPECIFIER = "WateringCpp DeveloperID";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -476,7 +480,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = WateringCppEx/WateringCppEx.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R3M694BK62;
 				INFOPLIST_FILE = WateringCppEx/Info.plist;
@@ -484,6 +488,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.side.junktown.WateringCpp.WateringCppEx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "29b4ddf2-4304-4707-9be8-67dd2af2c1fd";
+				PROVISIONING_PROFILE_SPECIFIER = "WateringCppEx DeveloperID";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};
@@ -493,7 +499,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = WateringCppEx/WateringCppEx.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R3M694BK62;
 				INFOPLIST_FILE = WateringCppEx/Info.plist;
@@ -501,6 +507,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.side.junktown.WateringCpp.WateringCppEx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "29b4ddf2-4304-4707-9be8-67dd2af2c1fd";
+				PROVISIONING_PROFILE_SPECIFIER = "WateringCppEx DeveloperID";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};
@@ -579,6 +587,7 @@
 				3777EF691E8A9B4C003AFE16 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
