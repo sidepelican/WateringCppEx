@@ -13,6 +13,7 @@ struct CppFunction {
     let nameAndArgs: String
     let returnType: String
     let hasVirtual: Bool
+    let hasOverride: Bool
     let hasConst: Bool
     let comment: String?
     
@@ -26,8 +27,11 @@ struct CppFunction {
         let nameAndArgs = ans[0][0]
         self.nameAndArgs = nameAndArgs
         
+        // has overrride
+        self.hasOverride = !line.match(pattern: "\\).*override").isEmpty
+        
         // has const
-        self.hasConst = !line.match(pattern: "\\)\\s*const").isEmpty
+        self.hasConst = !line.match(pattern: "\\).*const").isEmpty
         
         // has comment
         ans = line.match(pattern: "//.*")
@@ -40,6 +44,9 @@ struct CppFunction {
         
         // remove noizy words. // TODO: dirty
         line.removeSubrange(line.range(of: nameAndArgs)!)
+        if self.hasOverride {
+            line.removeSubrange(line.range(of: "override")!)
+        }
         if self.hasConst {
             line.removeSubrange(line.range(of: "const")!)
         }

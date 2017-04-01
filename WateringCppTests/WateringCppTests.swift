@@ -10,21 +10,7 @@ import XCTest
 
 class WateringCppTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        
-        XCTAssert(true, "ok")
+    func testSimple() {
         
         [
             "int size() const;                   // サイズ",
@@ -38,11 +24,15 @@ class WateringCppTests: XCTestCase {
             .forEach { line in
                 XCTAssertNotNil(CppFunction(line: line), line)
         }
+    }
+    
+    func testDetails() {
         
         if let f = CppFunction(line: "  int size() const;          // size") {
             XCTAssertEqual(f.nameAndArgs, "size()")
             XCTAssertEqual(f.returnType, "int")
             XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, true)
             XCTAssertEqual(f.comment, .some("// size"))
         }else{
@@ -53,6 +43,7 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "names()")
             XCTAssertEqual(f.returnType, "vector<string>")
             XCTAssertEqual(f.hasVirtual, true)
+            XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, false)
             XCTAssertEqual(f.comment, .none)
         }else{
@@ -63,6 +54,7 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "find(const std::string& key)")
             XCTAssertEqual(f.returnType, "pair<int,float>")
             XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, true)
             XCTAssertEqual(f.comment, .none)
         }else{
@@ -73,18 +65,65 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "map(const string& key, int max)")
             XCTAssertEqual(f.returnType, "map<int,list<int>>")
             XCTAssertEqual(f.hasVirtual, true)
+            XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, true)
             XCTAssertEqual(f.comment, .some("//  dangerous"))
         }else{
             XCTFail("could not parse")
         }
-
+        
         if let f = CppFunction(line: "map<int, map<int, int>> map(const map<int, int>& a);") {
             XCTAssertEqual(f.nameAndArgs, "map(const map<int, int>& a)")
             XCTAssertEqual(f.returnType, "map<int,map<int,int>>")
             XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, false)
             XCTAssertEqual(f.comment, .none)
+        }else{
+            XCTFail("could not parse")
+        }
+        
+        if let f = CppFunction(line: "virtual int hoge(AAA* aaa) override;") {
+            XCTAssertEqual(f.nameAndArgs, "hoge(AAA* aaa)")
+            XCTAssertEqual(f.returnType, "int")
+            XCTAssertEqual(f.hasVirtual, true)
+            XCTAssertEqual(f.hasOverride, true)
+            XCTAssertEqual(f.hasConst, false)
+            XCTAssertEqual(f.comment, .none)
+        }else{
+            XCTFail("could not parse")
+        }
+    
+        if let f = CppFunction(line: "virtual int hoge(AAA* aaa) const override;") {
+            XCTAssertEqual(f.nameAndArgs, "hoge(AAA* aaa)")
+            XCTAssertEqual(f.returnType, "int")
+            XCTAssertEqual(f.hasVirtual, true)
+            XCTAssertEqual(f.hasOverride, true)
+            XCTAssertEqual(f.hasConst, true)
+            XCTAssertEqual(f.comment, .none)
+        }else{
+            XCTFail("could not parse")
+        }
+    }
+    
+    func testBrackets() {
+        
+        if let f = CppFunction(line: "float test(CONSTREF(AAA) aaa);") {
+            XCTAssertEqual(f.nameAndArgs, "test(CONSTREF(AAA) aaa)")
+            XCTAssertEqual(f.returnType, "float")
+            XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasConst, false)
+            XCTAssertEqual(f.comment, .none)
+        }else{
+            XCTFail("could not parse")
+        }
+
+        if let f = CppFunction(line: "CONSTREF(vector<int>) test() const;    // some comments") {
+            XCTAssertEqual(f.nameAndArgs, "test()")
+            XCTAssertEqual(f.returnType, "CONSTREF(vector<int>)")
+            XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasConst, true)
+            XCTAssertEqual(f.comment, .some("// some comments"))
         }else{
             XCTFail("could not parse")
         }

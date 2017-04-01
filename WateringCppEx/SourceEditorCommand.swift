@@ -20,16 +20,19 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
         }
         
         // find ClassName
-        guard let secondLine = buffer.lines[1] as? String else {
-            completionHandler(NSError(domain: "WateringCpp", code: -1, userInfo: [NSLocalizedDescriptionKey: "cannot read line 2"]))
-            return
-        }
-        let matches = secondLine.match(pattern: "\\w+")
-        guard !matches.isEmpty else {
-            completionHandler(NSError(domain: "WateringCpp", code: -1, userInfo: [NSLocalizedDescriptionKey: "cannot find ClassName at line 2"]))
-            return
-        }
-        let className = matches[0][0]
+        let className: String = {
+            
+            let defaultName = "<#classname#>"
+            guard let secondLine = buffer.lines[1] as? String else {
+                return defaultName
+            }
+            let matches = secondLine.match(pattern: "\\w+")
+            
+            guard let match1s = matches.first else { return defaultName }
+            guard let match1 = match1s.first else { return defaultName }
+        
+            return match1
+        }()
     
         // replace from back
         var currentIndex = selection.end.line
