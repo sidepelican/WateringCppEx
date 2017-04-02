@@ -22,12 +22,15 @@ struct CppFunction {
         var line = line
         var ans: [[String]] = []
         
+        // remove default value
+        line = line.replacingOccurrences(of: "\\s*?=\\s*?[\\w\"]+", with: "", options: .regularExpression, range: nil)
+        
         // function name & Args
         do {
             // CONSTREF(T)マクロが正規表現じゃどうしようもないためエスケープ
             let macroUnwrapped = line.replacingOccurrences(of: "CONSTREF\\((\\w+)\\)", with: "const $1&", options: .regularExpression, range: nil)
             
-            ans = macroUnwrapped.match(pattern: "\\w+((\\(\\))|\\([\\w*]+\\s[\\w\\s<>&*\\(\\),:]+\\))")
+            ans = macroUnwrapped.match(pattern: "\\w+((\\(\\))|\\([\\w*]+\\s[\\w\\s<>&*\\(\\),:=\"]+\\))")
             guard !ans.isEmpty else { return nil }
             
             var nameAndArgs = ans[0][0]

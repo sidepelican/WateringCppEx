@@ -112,6 +112,7 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "test(CONSTREF(AAA) aaa)")
             XCTAssertEqual(f.returnType, "float")
             XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, false)
             XCTAssertEqual(f.comment, .none)
         }else{
@@ -122,8 +123,34 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "test()")
             XCTAssertEqual(f.returnType, "CONSTREF(vector<int>)")
             XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, true)
             XCTAssertEqual(f.comment, .some("// some comments"))
+        }else{
+            XCTFail("could not parse")
+        }
+    }
+    
+    func testDefaultValue() {
+
+        if let f = CppFunction(line: "void do(bool a = true); // some") {
+            XCTAssertEqual(f.nameAndArgs, "do(bool a)")
+            XCTAssertEqual(f.returnType, "void")
+            XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasOverride, false)
+            XCTAssertEqual(f.hasConst, false)
+            XCTAssertEqual(f.comment, .some("// some"))
+        }else{
+            XCTFail("could not parse")
+        }
+        
+        if let f = CppFunction(line: "void do(int aa = 22, string text = \"hello\"); // some") {
+            XCTAssertEqual(f.nameAndArgs, "do(int aa, string text)")
+            XCTAssertEqual(f.returnType, "void")
+            XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasOverride, false)
+            XCTAssertEqual(f.hasConst, false)
+            XCTAssertEqual(f.comment, .some("// some"))
         }else{
             XCTFail("could not parse")
         }
