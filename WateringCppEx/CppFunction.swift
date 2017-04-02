@@ -68,7 +68,7 @@ struct CppFunction {
         }
         
         // virtual & returnType
-        ans = line.match(pattern: "[\\w\\(\\)&<>,]+")
+        ans = line.match(pattern: "[\\w\\(\\)&<>,:]+")
         guard !ans.isEmpty else { return nil }
         
         self.hasVirtual = ans[0][0] == "virtual"
