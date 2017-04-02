@@ -20,12 +20,25 @@ struct CppFunction {
     init?(line: String) {
         
         var line = line
+        var ans: [[String]] = []
         
         // function name & Args
-        var ans = line.match(pattern: "\\w+((\\(\\))|\\([\\w*]+\\s[\\w\\s<>&*\\(\\),:]+\\))")
-        guard !ans.isEmpty else { return nil }
-        let nameAndArgs = ans[0][0]
-        self.nameAndArgs = nameAndArgs
+        do {
+            // CONSTREF(T)マクロが正規表現じゃどうしようもないためエスケープ
+            let macroUnwrapped = line.replacingOccurrences(of: "CONSTREF\\((\\w+)\\)", with: "const $1&", options: .regularExpression, range: nil)
+            
+            ans = macroUnwrapped.match(pattern: "\\w+((\\(\\))|\\([\\w*]+\\s[\\w\\s<>&*\\(\\),:]+\\))")
+            guard !ans.isEmpty else { return nil }
+            
+            var nameAndArgs = ans[0][0]
+            
+            // 展開したものを戻す
+            if macroUnwrapped != line {
+                nameAndArgs = nameAndArgs.replacingOccurrences(of: "const (\\w+)&", with: "CONSTREF($1)", options: .regularExpression, range: nil)
+            }
+            
+            self.nameAndArgs = nameAndArgs
+        }
         
         // has overrride
         self.hasOverride = !line.match(pattern: "\\).*override").isEmpty
@@ -42,13 +55,13 @@ struct CppFunction {
             self.comment = nil
         }
         
-        // remove noizy words. // TODO: dirty
-        line.removeSubrange(line.range(of: nameAndArgs)!)
+        // remove noizy words
+        line = line.replacingOccurrences(of: self.nameAndArgs, with: "")
         if self.hasOverride {
-            line.removeSubrange(line.range(of: "override")!)
+            line = line.replacingOccurrences(of: "override", with: "")
         }
         if self.hasConst {
-            line.removeSubrange(line.range(of: "const")!)
+            line = line.replacingOccurrences(of: "const", with: "")
         }
         
         // virtual & returnType
