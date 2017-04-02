@@ -1,10 +1,11 @@
 # WateringCppEx
 Xcode Source Editor Extentsion (Xcode 8+)
 
+unfold header definition.
 
 ## Example
 
-(not ready)
+![sample](https://cloud.githubusercontent.com/assets/19257572/24587155/51d2b26e-17ec-11e7-9ac3-02e167f406c3.gif)
 
 # Install
 
