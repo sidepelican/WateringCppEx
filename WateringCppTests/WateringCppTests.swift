@@ -154,5 +154,16 @@ class WateringCppTests: XCTestCase {
         }else{
             XCTFail("could not parse")
         }
+        
+        if let f = CppFunction(line: "virtual int eat(const vector<Food>& foods, float wait = 0.f) override;") {
+            XCTAssertEqual(f.nameAndArgs, "eat(const vector<Food>& foods, float wait)")
+            XCTAssertEqual(f.returnType, "int")
+            XCTAssertEqual(f.hasVirtual, true)
+            XCTAssertEqual(f.hasOverride, true)
+            XCTAssertEqual(f.hasConst, false)
+            XCTAssertEqual(f.comment, .none)
+        }else{
+            XCTFail("could not parse")
+        }
     }
 }

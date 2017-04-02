@@ -23,7 +23,7 @@ struct CppFunction {
         var ans: [[String]] = []
         
         // remove default value
-        line = line.replacingOccurrences(of: "\\s*?=\\s*?[\\w\"]+", with: "", options: .regularExpression, range: nil)
+        line = line.replacingOccurrences(of: "\\s*?=\\s*?[\\w\"\\.f]+", with: "", options: .regularExpression, range: nil)
         
         // function name & Args
         do {
