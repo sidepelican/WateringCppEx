@@ -13,6 +13,7 @@ struct CppFunction {
     let nameAndArgs: String
     let returnType: String
     let hasVirtual: Bool
+    let hasStatic: Bool
     let hasOverride: Bool
     let hasConst: Bool
     let comment: String?
@@ -30,7 +31,7 @@ struct CppFunction {
             // CONSTREF(T)マクロが正規表現じゃどうしようもないためエスケープ
             let macroUnwrapped = line.replacingOccurrences(of: "CONSTREF\\((\\w+)\\)", with: "const $1&", options: .regularExpression, range: nil)
             
-            ans = macroUnwrapped.match(pattern: "\\w+((\\(\\))|\\([\\w*]+\\s[\\w\\s<>&*\\(\\),:=\"]+\\))")
+            ans = macroUnwrapped.match(pattern: "\\w+((\\(\\))|\\([\\w<>&*]+\\s[\\w\\s<>&*\\(\\),:=\"]+\\))")
             guard !ans.isEmpty else { return nil }
             
             var nameAndArgs = ans[0][0]
@@ -67,12 +68,17 @@ struct CppFunction {
             line = line.replacingOccurrences(of: "const", with: "")
         }
         
-        // virtual & returnType
+        // virtual & static & returnType
         ans = line.match(pattern: "[\\w\\(\\)&<>,:]+")
         guard !ans.isEmpty else { return nil }
         
         self.hasVirtual = ans[0][0] == "virtual"
         if self.hasVirtual {
+            ans.removeFirst()
+        }
+        
+        self.hasStatic = ans[0][0] == "static"
+        if self.hasStatic {
             ans.removeFirst()
         }
         

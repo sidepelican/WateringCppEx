@@ -32,6 +32,7 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "size()")
             XCTAssertEqual(f.returnType, "int")
             XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasStatic, false)
             XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, true)
             XCTAssertEqual(f.comment, .some("// size"))
@@ -43,6 +44,7 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "names()")
             XCTAssertEqual(f.returnType, "vector<string>")
             XCTAssertEqual(f.hasVirtual, true)
+            XCTAssertEqual(f.hasStatic, false)
             XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, false)
             XCTAssertEqual(f.comment, .none)
@@ -54,6 +56,7 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "find(const std::string& key)")
             XCTAssertEqual(f.returnType, "pair<int,float>")
             XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasStatic, false)
             XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, true)
             XCTAssertEqual(f.comment, .none)
@@ -65,6 +68,7 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "map(const string& key, int max)")
             XCTAssertEqual(f.returnType, "map<int,list<int>>")
             XCTAssertEqual(f.hasVirtual, true)
+            XCTAssertEqual(f.hasStatic, false)
             XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, true)
             XCTAssertEqual(f.comment, .some("//  dangerous"))
@@ -76,6 +80,7 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "map(const map<int, int>& a)")
             XCTAssertEqual(f.returnType, "map<int,map<int,int>>")
             XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasStatic, false)
             XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, false)
             XCTAssertEqual(f.comment, .none)
@@ -87,6 +92,7 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "hoge(AAA* aaa)")
             XCTAssertEqual(f.returnType, "int")
             XCTAssertEqual(f.hasVirtual, true)
+            XCTAssertEqual(f.hasStatic, false)
             XCTAssertEqual(f.hasOverride, true)
             XCTAssertEqual(f.hasConst, false)
             XCTAssertEqual(f.comment, .none)
@@ -98,9 +104,22 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "hoge(AAA* aaa)")
             XCTAssertEqual(f.returnType, "int")
             XCTAssertEqual(f.hasVirtual, true)
+            XCTAssertEqual(f.hasStatic, false)
             XCTAssertEqual(f.hasOverride, true)
             XCTAssertEqual(f.hasConst, true)
             XCTAssertEqual(f.comment, .none)
+        }else{
+            XCTFail("could not parse")
+        }
+        
+        if let f = CppFunction(line: "void getOptimized(vector<GridInfo>* gridResult, GridToEdgeBit* edgeResult) const; // comment") {
+            XCTAssertEqual(f.nameAndArgs, "getOptimized(vector<GridInfo>* gridResult, GridToEdgeBit* edgeResult)")
+            XCTAssertEqual(f.returnType, "void")
+            XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasStatic, false)
+            XCTAssertEqual(f.hasOverride, false)
+            XCTAssertEqual(f.hasConst, true)
+            XCTAssertEqual(f.comment, .some("// comment"))
         }else{
             XCTFail("could not parse")
         }
@@ -112,6 +131,7 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "test(CONSTREF(AAA) aaa)")
             XCTAssertEqual(f.returnType, "float")
             XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasStatic, false)
             XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, false)
             XCTAssertEqual(f.comment, .none)
@@ -123,6 +143,7 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "test()")
             XCTAssertEqual(f.returnType, "CONSTREF(vector<int>)")
             XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasStatic, false)
             XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, true)
             XCTAssertEqual(f.comment, .some("// some comments"))
@@ -137,6 +158,7 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "do(bool a)")
             XCTAssertEqual(f.returnType, "void")
             XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasStatic, false)
             XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, false)
             XCTAssertEqual(f.comment, .some("// some"))
@@ -148,6 +170,7 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "do(int aa, string text)")
             XCTAssertEqual(f.returnType, "void")
             XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasStatic, false)
             XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, false)
             XCTAssertEqual(f.comment, .some("// some"))
@@ -159,7 +182,23 @@ class WateringCppTests: XCTestCase {
             XCTAssertEqual(f.nameAndArgs, "eat(const vector<Food>& foods, float wait)")
             XCTAssertEqual(f.returnType, "int")
             XCTAssertEqual(f.hasVirtual, true)
+            XCTAssertEqual(f.hasStatic, false)
             XCTAssertEqual(f.hasOverride, true)
+            XCTAssertEqual(f.hasConst, false)
+            XCTAssertEqual(f.comment, .none)
+        }else{
+            XCTFail("could not parse")
+        }
+    }
+    
+    func testStatic() {
+
+        if let f = CppFunction(line: "static int do();") {
+            XCTAssertEqual(f.nameAndArgs, "do()")
+            XCTAssertEqual(f.returnType, "int")
+            XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasStatic, true)
+            XCTAssertEqual(f.hasOverride, false)
             XCTAssertEqual(f.hasConst, false)
             XCTAssertEqual(f.comment, .none)
         }else{
