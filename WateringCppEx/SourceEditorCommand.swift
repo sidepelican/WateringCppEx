@@ -38,12 +38,14 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
         var currentIndex = selection.end.line
         
         while selection.start.line <= currentIndex {
+            defer { currentIndex -= 1 }
             
+            // get current line
+            guard currentIndex < buffer.lines.count else { continue };
             guard let line = buffer.lines[currentIndex] as? String else { break }
-            defer {
-                currentIndex -= 1
-            }
             if isEmptyLine(line) { continue }
+            
+            // try parse
             guard let f = CppFunction(line: line) else { continue }
             buffer.lines.removeObject(at: currentIndex)
             
