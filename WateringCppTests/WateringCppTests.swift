@@ -205,4 +205,31 @@ class WateringCppTests: XCTestCase {
             XCTFail("could not parse")
         }
     }
+    
+    func testPointer() {
+        
+        if let f = CppFunction(line: "Cat* do(Cat* cat);") {
+            XCTAssertEqual(f.nameAndArgs, "do(Cat* cat)")
+            XCTAssertEqual(f.returnType, "Cat*")
+            XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasStatic, false)
+            XCTAssertEqual(f.hasOverride, false)
+            XCTAssertEqual(f.hasConst, false)
+            XCTAssertEqual(f.comment, .none)
+        }else{
+            XCTFail("could not parse")
+        }
+        
+        if let f = CppFunction(line: "pair<Cat*, int*> do(Cat* cat);") {
+            XCTAssertEqual(f.nameAndArgs, "do(Cat* cat)")
+            XCTAssertEqual(f.returnType, "pair<Cat*,int*>")
+            XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasStatic, false)
+            XCTAssertEqual(f.hasOverride, false)
+            XCTAssertEqual(f.hasConst, false)
+            XCTAssertEqual(f.comment, .none)
+        }else{
+            XCTFail("could not parse")
+        }
+    }
 }
