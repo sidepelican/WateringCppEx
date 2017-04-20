@@ -36,6 +36,7 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     
         // replace from back
         var currentIndex = selection.end.line
+        var firstFunc = true
         
         while selection.start.line <= currentIndex {
             defer { currentIndex -= 1 }
@@ -57,7 +58,10 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
             addLines.append("{")
             addLines.append("")
             addLines.append("}")
-            addLines.append("")
+            if firstFunc == false {
+                addLines.append("")
+            }
+            firstFunc = false
             
             addLines.reversed().forEach{
                 buffer.lines.insert($0, at: currentIndex)
