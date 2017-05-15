@@ -12,22 +12,6 @@ class WateringCppTests: XCTestCase {
     
     func testSimple() {
         
-        [
-            "int size() const;                   // サイズ",
-            "bool empty() const;                 // 空かどうか",
-            "bool contains(Touch* t) const;      // 指定タッチが含まれてるか",
-            "void insert(Touch* t);              // タッチの追加",
-            "void erase(Touch* t);               // タッチの削除",
-            "Vec2 getTouchMoveVelocity() const;  // 全体でのタップ速度を取得",
-            "void touchMoved(Touch* t);          // タップ移動時のイベントをハンドル",
-            ]
-            .forEach { line in
-                XCTAssertNotNil(CppFunction(line: line), line)
-        }
-    }
-    
-    func testDetails() {
-        
         if let f = CppFunction(line: "  int size() const;          // size") {
             XCTAssertEqual(f.nameAndArgs, "size()")
             XCTAssertEqual(f.returnType, "int")
@@ -223,6 +207,33 @@ class WateringCppTests: XCTestCase {
         if let f = CppFunction(line: "pair<Cat*, int*> do(Cat* cat);") {
             XCTAssertEqual(f.nameAndArgs, "do(Cat* cat)")
             XCTAssertEqual(f.returnType, "pair<Cat*,int*>")
+            XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasStatic, false)
+            XCTAssertEqual(f.hasOverride, false)
+            XCTAssertEqual(f.hasConst, false)
+            XCTAssertEqual(f.comment, .none)
+        }else{
+            XCTFail("could not parse")
+        }
+    }
+    
+    func testNamespace() {
+        
+        if let f = CppFunction(line: "aaa::bbb* some(ddd::eee* value);") {
+            XCTAssertEqual(f.nameAndArgs, "some(ddd::eee* value)")
+            XCTAssertEqual(f.returnType, "aaa::bbb*")
+            XCTAssertEqual(f.hasVirtual, false)
+            XCTAssertEqual(f.hasStatic, false)
+            XCTAssertEqual(f.hasOverride, false)
+            XCTAssertEqual(f.hasConst, false)
+            XCTAssertEqual(f.comment, .none)
+        }else{
+            XCTFail("could not parse")
+        }
+        
+        if let f = CppFunction(line: "aaa::bbb::ccc some(ddd::eee* value, aaa::bbb::ccc value2);") {
+            XCTAssertEqual(f.nameAndArgs, "some(ddd::eee* value, aaa::bbb::ccc value2)")
+            XCTAssertEqual(f.returnType, "aaa::bbb::ccc")
             XCTAssertEqual(f.hasVirtual, false)
             XCTAssertEqual(f.hasStatic, false)
             XCTAssertEqual(f.hasOverride, false)
